@@ -1,0 +1,60 @@
+<html>
+	
+<head>
+	
+	<title>test</title>
+	<style type="text/css">
+		#firstP{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			opacity: 50%;
+		}
+	</style>
+
+
+
+</head>
+
+<body>
+	
+
+	<body> 
+
+	<div id="firstP"></div>
+
+	<input type="button" onclick="move()" value="press" />
+    <div id="sq" style="position:absolute; top:50px; left:50px; height:50px; width:50px; background-color:Black; -moz-transition : all 0.8s ease 0s;">
+    	
+    </div>
+
+
+	</body>
+
+
+	<script type="text/javascript">
+		
+		function addNode(){
+	     	var newDiv = document.createElement("div"); 
+		    newDiv.id = "firstP";
+	        document.getElementById("firstP").appendChild(newDiv);
+	    }
+
+	    function move() {
+            var sq = document.getElementById("sq");
+            sq.style.left = "300px";
+            sq.style.top = "150px";
+        }
+	    //addNode();
+	    //addNode();
+	</script>
+</body>
+
+
+
+
+
+
+
+
+</html>

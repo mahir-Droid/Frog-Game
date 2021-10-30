@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>frog game</title>
+<style type="text/css">
+	
+	body{
+		margin: 0px;
+		padding: 0px;
+		background-image: url("New Project.png");
+		background-repeat: no-repeat;
+	}
+
+
+	#frog{
+		height: 100px;
+		width: 100px;
+		background-color: none;
+		position: relative;
+		left: 500px;
+		top: -150px;
+	}
+
+	#well{
+		height: 100px;
+		width: 100px;
+		background-color: none;
+		position: absolute;
+		left: 450px;
+		top: 500px;
+	}
+	#fallen_h1{
+		position: absolute;
+		left: 485px;
+		top: 600px;
+	}
+	#squashed_h1{
+		position: absolute;
+		left: 465px;
+		top: 650px;
+	}
+	#button{
+		position: absolute;
+		left: 500px;
+		top: 730px;
+	}
+	
+
+</style>
+</head>
+
+
+
+<body>
+
+	<div id="frog" onclick="resetFrog();playFrogAudio();wasSquashed()">
+		<img src="frog.png" width="100">
+	</div>
+
+	
+
+	<div id="well"><img src="well-removed.png" width="200"></div>
+
+	<h1 id="fallen_h1">Fallen: <span id="fallen_score">0</span></h1>
+	<h1 id="squashed_h1">Squashed: <span id="squashed_score">0</span></h1>
+
+	<button id ="button" onclick="stopGame()">Stop Game</button>
+
+	<script type="text/javascript">
+
+	function playFrogAudio() {
+	  new Audio("splatter.mp3").play();
+	}
+	function playWaterAudio() {
+	  new Audio("water_drop.mp3").play();
+	}
+
+	function wasSquashed(){
+		squashed++;
+		document.getElementById("squashed_score").innerHTML = squashed;
+	}
+
+	function stopGame(){
+		stop = true;
+		resetFrog();
+	}
+	
+
+	function collision(div1, div2){
+	  div1 = document.getElementById(div1);
+	  div2 = document.getElementById(div2);
+	  
+	  return div1.offsetTop == div2.offsetTop;
+	  
+	}
+
+	function move_down(){
+		var step = 2;
+		var x = document.getElementById("frog").offsetTop;
+		x = x + step;
+		document.getElementById("frog").style.top = x+"px";
+	}
+
+	function resetFrog(){
+		var x = document.getElementById("frog");
+		document.getElementById("frog").style.top = (x.offsetTop - (50*13)) + "px";	
+	}
+
+	function sleep(duration) {
+		return new Promise(resolve => {
+			setTimeout(() => {
+				resolve()
+			}, duration)
+		})
+	}
+	
+
+	var howManyTimes = 13; fallen = 0, squashed = 0; stop = false;
+
+	async function main() {
+		var i =0;
+		while(!stop){
+			move_down();
+			await sleep(12.5);
+			i++;
+
+			if(collision("frog","well")){
+				fallen++;
+				playWaterAudio();
+			  	document.getElementById("fallen_score").innerHTML = fallen;
+			  	resetFrog();
+			  	await sleep(2000);
+		 	}
+			
+		}
+	}
+
+	main();
+
+	
+	</script>
+</body>
+
+</html>
